@@ -7,7 +7,7 @@
 ********************************************************************************
 
 * greg2sol folder path
-global root "/Users/peymansh/Dropbox/Personal/StataPackages/greg2sol"
+global root "/Users/Peyman/Documents/GitHub/greg2sol"
 //global root "path to/greg2sol"
 global data "${root}"
 

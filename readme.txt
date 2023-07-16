@@ -1,12 +1,12 @@
 *******************************************************************************
-** Instructions for "greg2sol" command by Peyman Shahidi **
-** Last updated: Oct 10, 2020
+** Instructions for "greg2sol" calendar converter command by Peyman Shahidi **
+** Last updated: Jul 10, 2023 (19 Tir 1402)
 *******************************************************************************
 
 
 
 *******************************************************************************
-This command takes as input "year, month, day" in Gregorian calendar and 
+This command takes "year, month, day" in Gregorian calendar as inputs and 
 returns the corresponding dates in Solar Hijri calendar.
 
 ** Note 1: 
