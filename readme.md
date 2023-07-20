@@ -56,6 +56,13 @@ P.S.: The `greg2sol_test.do` script changes the adopath direcotry in your machin
 
 
 *******************************************************************************
+## Citation
+If you use this command, please cite it as below:
+```
+Shahidi, Peyman, Gregorian to Solar Hijri Calendar Conversion in Stata, (2023), GitHub repository, https://github.com/peymanshahidi/greg2sol
+```
+
+*******************************************************************************
 ## Acknowledgements
 Thanks are due to Hosein Joshaghani, who encouraged me to develop this command, and `d-learn.ir`, whose [historical IRR to USD exchange rate dataset](https://d-learn.ir/p/usd-price/) is used for the test materials.
 
