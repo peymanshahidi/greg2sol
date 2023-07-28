@@ -26,7 +26,7 @@ adopath + "${root}"
 ** 		 Stata datetime format (%t*) or string format ("year/month/day"). code 
 ** 		 below shows the Stata datetime input test case. go to line 76 for an 
 ** 		 example of single-variable input in string format.
-use "IRR_USD_exchangeRate", clear
+import delimited using "IRR_USD_historicalExRate.csv", clear case(preserve)
 cap program drop greg2sol
 
 // convert original Gregorian date variable "dateGregorian" to Stata datetime 
@@ -50,7 +50,7 @@ count if missing(flag)
 *===============================================================================
 ** Use case #2: input Gregorian date consists of three variables in string 
 **				or numeric formats
-use "IRR_USD_exchangeRate", clear
+import delimited using "IRR_USD_historicalExRate.csv", clear case(preserve)
 cap program drop greg2sol
 
 // split Gregorian date variable into three separate year, month, day variables 
@@ -77,7 +77,7 @@ count if missing(flag)
 ** date variable is in string format ("year/month/day") and the command produces 
 ** three separate variables for "solarYear", "solarMonth", and "solarDay" in the
 ** output
-use "IRR_USD_exchangeRate", clear
+import delimited using "IRR_USD_historicalExRate.csv", clear case(preserve)
 cap program drop greg2sol
 
 // input Gregorian date "dateGregorian" is in string format and single output
