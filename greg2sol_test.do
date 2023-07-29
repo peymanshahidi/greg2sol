@@ -10,14 +10,12 @@ clear all
 graph drop _all
 set more off
 set scheme s1color
+
+** install (or overwrite) the "greg2sol" command
+cap ssc uninstall greg2sol
 cap program drop greg2sol
-
-** set working direcotry to the "greg2sol" folder path on your machine
-global root "path_to/greg2sol"
-cd "${root}"
-
-** define data path
-global df_path "https://raw.githubusercontent.com/peymanshahidi/greg2sol/master"
+cap net install greg2sol, ///
+		from("https://raw.githubusercontent.com/peymanshahidi/greg2sol/master/")
 
 
 ********************** Gregorian to Solar Hijri conversion *********************
@@ -38,7 +36,7 @@ global df_path "https://raw.githubusercontent.com/peymanshahidi/greg2sol/master"
 
 *===============================================================================
 ** 1. Gregorian input is a single variable in string format ("year/month/day")
-import delimited "${df_path}/IRR_USD_histExRate.csv", clear case(preserve)
+sysuse IRR_USD_histExRate, clear
 greg2sol dateGregorian, separate(yearSolar monthSolar daySolar) ///
 						string(solarDate_str) ///
 						datetime(solarDate_datetime) aesthetic(long)
