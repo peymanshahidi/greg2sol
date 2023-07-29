@@ -48,7 +48,7 @@ The `greg2sol_test.do` file contains examples for different use cases of the com
 
 &nbsp;1. Download the `greg2sol` project files.
 
-&nbsp;2. Define global macro `root` in `line 11` of the `greg2sol_test.do` script to be the path of `greg2sol` folder on your machine (the path of files downloaded in previous step).
+&nbsp;2. Define global macro `root` in `line 16` of the `greg2sol_test.do` script to be the path of `greg2sol` folder on your machine (the path of files downloaded in previous step).
 
 &nbsp;3. Run the script.
 

@@ -4,17 +4,20 @@
 **					   (available at: https://d-learn.ir/p/usd-price)
 ** By:							     Peyman Shahidi
 ** Do-file Name:			       "greg2sol_test.do"    
-** Version Date:	  	      7 Mordad 1402 - 29 July 2023
+** Version Date:	  	      8 Mordad 1402 - 30 July 2023
 ********************************************************************************
 clear all
 graph drop _all
 set more off
 set scheme s1color
+cap program drop greg2sol
 
 ** set working direcotry to the "greg2sol" folder path on your machine
 global root "path_to/greg2sol"
 cd "${root}"
-cap program drop greg2sol
+
+** define data path
+global df_path "https://raw.githubusercontent.com/peymanshahidi/greg2sol/master"
 
 
 ********************** Gregorian to Solar Hijri conversion *********************
@@ -35,7 +38,7 @@ cap program drop greg2sol
 
 *===============================================================================
 ** 1. Gregorian input is a single variable in string format ("year/month/day")
-import delimited using "IRR_USD_historicalExRate.csv", clear case(preserve)
+import delimited "${df_path}/IRR_USD_histExRate.csv", clear case(preserve)
 greg2sol dateGregorian, separate(yearSolar monthSolar daySolar) ///
 						string(solarDate_str) ///
 						datetime(solarDate_datetime) aesthetic(long)
@@ -52,7 +55,7 @@ graph twoway line IRR_USD solarDate_datetime, ///
 
 *===============================================================================
 ** 2. Gregorian input is single variable in Stata datetime (%t*) format
-import delimited using "IRR_USD_historicalExRate.csv", clear case(preserve)
+import delimited "${df_path}/IRR_USD_histExRate.csv", clear case(preserve)
 gen dateGregorian_datetime = date(dateGregorian, "YMD")
 format dateGregorian_datetime %td
 greg2sol dateGregorian_datetime, sep(yearSolar monthSolar daySolar)
@@ -61,7 +64,7 @@ sort yearSolar monthSolar daySolar
 
 *===============================================================================
 ** 3. Gregorian inputs are three variables in provided in year, month, day order
-import delimited using "IRR_USD_historicalExRate.csv", clear case(preserve)
+import delimited "${df_path}/IRR_USD_histExRate.csv", clear case(preserve)
 split dateGregorian, p("-") destring
 rename dateGregorian1 gregorianYear
 rename dateGregorian2 gregorianMonth
