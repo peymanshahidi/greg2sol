@@ -1,109 +1,122 @@
 *******************************************************************************
-** Title: 	  	Conversion of Gregorian calendar to Solar Hijri calendar
-** By:								Peyman Shahidi
-** ado-file name:					 greg2sol.ado
-** Version date:	  	    	29 Tir 1402 - 20 July 2023
+** Title: 	  	   Conversion of Gregorian calendar to Solar Hijri calendar
+** By:								   Peyman Shahidi
+** ado-file name:					    greg2sol.ado
+** Version date:	  	    	7 Mordad 1402 - 29 July 2023
 *******************************************************************************
 *******************************************************************************
-** The "greg2sol" command takes Gregorian date variable(s) as input and flexibly
-** produces corresponding Solar Hijri calendar dates in one of two formats: 
-** 1) a string under a user-specified variable name, or 2) three variables for 
-** each of the Solar Hijri year, month, day values in numeric format.
+** The "greg2sol" command takes Gregorian date variable(s) as input and produces
+** corresponding Solar Hijri dates in up to three different types of outputs.
+**
+** Types of Gregorian date input(s):
+** 1. A string variable in "year/month/day" format (e.g., "2011/8/23")
+** 2. A Stata datetime variable in %t* format (e.g., 23aug2011 with value 18862)
+** 3. Three separate variables; one for each of year, month, day (in this order)
+**
+** Types of Solar Hijri date output(s):
+** 1. A string variable in "year/month/day" format (e.g., "1390/06/01")
+** 2. A Stata datetime variable in %td format (e.g., 01sha1390 with value 18862)
+** 3. Three separate variables; one for each of year, month, day
+**
 **
 ** Examples:
 **
 ** 1. Suppose Gregorian date value "2011/8/23" is stored in variable "dateGreg" 
-** (either in a string format or in Stata %t* datetime format) and one wants to 
+** (either in string format or in Stata %t* datetime formats) and one wants to 
 ** obtain the corresponding Solar Hijri calendar date "1390/6/1" under a new 
-** variable called "dateSolar" in a string format. The following command does 
-** this conversion:
+** variable called "dateSolarHijri" in Stata %td format with Solar Hijri labels. 
+** The following command does this conversion:
 **
 **
-** greg2sol dateGreg, gen(dateSolar)
+** greg2sol dateGreg, datetime(dateSolarHijri)
 **
 **
-** 2. If the Gregorian input date value "2011/8/23" is stored in three separate
-** variables "yearGreg" (2011), "monthGreg" (8), "dayGreg" (23), and the output 
-** is to be returned under a variable called "dateSolar" in string format, one 
-** can use the following command for conversion:
+** 2. Suppose Gregorian date value "2011/8/23" is stored in three variables 
+** "yearGreg" (2011), "monthGreg" (8), "dayGreg" (23), and the corresponding 
+** Solar Hijri date "1390/6/1" is to be returned under a single output called 
+** "dateSolar" in string format. The following command does this conversion:
 **
 **
-** greg2sol yearGreg monthGreg dayGreg, gen(dateSolar)
+** greg2sol yearGreg monthGreg dayGreg, string(dateSolar)
 **
 **
 *******************************************************************************
 *******************************************************************************
 ** Note 1: 
-** The "greg2sol" command can manage two types of inputs:
-** 1. A single variable, either in "year/month/day" string format (e.g., 
+** The "greg2sol" command can manage three types of inputs:
+** 1. A single variable in "year/month/day" string format (e.g., 
 **    "2011/8/23") where the command is able to flexibly handle "/", "-", "+", 
-**    ":",  "--", " " (white space) as delimiters, or in Stata datetime formats 
-**    %t* (e.g., "23aug2011").
-** 2. Three separate variables in year, month, day order. In this case each
+**    ":",  "--", " " (white space) as delimiters.
+** 2. A single variable in Stata datetime formats %t* (e.g., "23aug2011" with 
+**    value 18862)
+** 3. Three separate variables in year, month, day order. In this case each
 **    input variable can be in either string or numeric format.
 **
 **
 ** Note 2: 
-** The "greg2sol" command can produce two types of outputs:
-** 1. Three separate variables under default names "solarYear", "solarMonth", 
-**    and "solarDay", all in numeric format. (This is the default form of output)
-** 2. A single string variable in "year/month/day" format (e.g., "1390/06/01").
-**    This form of output enabled if the user specifies a name for the output 
-**    variable through the gen(.) option of the program.
+** The "greg2sol" command can produce up to three types of outputs:
+** 1. A single variable in "year/month/day" string format (e.g., "1390/06/01").
+** 2. A single variable in Stata datetime format %td (e.g., "01sha1390" with 
+**    value 18862)
+** 3. Three separate variables, one for each of year, month, day, all in numeric 
+**    format.
 **
 **
 ** Note 3:
 ** The Gregorian "year" value must be a 4-digit number. This is intentional so 
 ** that the user, rather than the program, makes the distinction between 2-digit 
-** abbreviations of 19-- or 20-- Gregorian years (e.g., Gregorian abbreviation 
-** "05" can correspond to either 1905 or 2005 in conventional use cases). If all
-** inputs are given in a 2-digit format (e.g., "11/8/23" in the single-input 
-** use case of the program) the "greg2sol" command returns a syntax error. 
-** However, if some observations contain 4-digit year values while others 
-** contain 2-digit year values (e.g., one observation in the form of "11/8/23" 
-** and another in the form of "2012/8/23") the command DOES NOT return a syntax
-** error. In the latter case, it is assumed that the user has intentionally
-** provided entries in such manner.
+** abbreviations of 19-- or 20-- Gregorian years (e.g., "05" can correspond to 
+** either 1905 or 2005 in conventional use cases). If all inputs are given in a 
+** 2-digit format (e.g., "11/8/23" in the single-input use case of the program) 
+** the "greg2sol" command returns an error. However, if some observations 
+** contain 4-digit year values while others contain 2-digit year values (e.g., 
+** one observation in the form of "11/8/23" and another in the form of 
+** "2012/8/23") the command DOES NOT return an error. In the latter case, it is 
+** assumed that the user has intentionally provided entries in such manner.
 *******************************************************************************
-
 program greg2sol
-		version 14.1
-		syntax varlist(min=1 max=3) [if/] [, gen(name)]
+		version 14.0
+		syntax varlist(min=1 max=3) [if/] [, SEParate(namelist min=3 max=3) ///
+												STring(name) ///
+												Datetime(name) ///
+												AESthetic(string)]
 		tokenize `varlist'
 		
+		** return error if none of output options are specified
+		if ("`string'" == "" & "`datetime'" == "" & "`separate'" == ""){
+			display as error `"at least one type of output must be specified"'
+			exit 198
+		}
+		
 quietly{
-		// preserve dataset fed into the command in memory
-		// and get a list of original variables to restore later
+		** preserve original dataset and variable names
 		preserve
 		ds
 		local original_vars `r(varlist)'
 
-		
-		// mask the if condition
+		** mask the if condition
 		if "`if'" != "" {
 			keep if `if'
 		}
 		
-		
-		// keep only the Gregorian calendar date variables
-		// for lower load of computation and drop duplicates
+		** only keep Gregorian date variables for lower computation load
 		keep `varlist'
 		tempvar redundant
 		duplicates tag `varlist', gen(`redundant') 
 		bysort `varlist': keep if _n == _N
 		
 		
+		/* start of handling inputs */
+		** check if input Gregorian date variable is:
+		** 1) a single variable in Stata datetime (%t*) or string format, or 
+		** 2) three variables in form of year, month, day
 		
-		** check if input Gregorian date variable is
-		** a single variable in Stata date format (%t*) or string format, or 
-		** three variables in form of year, month, day
-		
-		// if only 1 variable is fed into the program check if it is in
-		// Stata datetime (%t*) format or string format and proceed accordingly
+		** if input is a single variable check whether it is
+		** in Stata datetime (%t*) format or string format
 		if "`varlist'" == "`1'" {
 			
-			// if single input variable is in datetime (%t*) format create three
-			// separate variables for year, month, day
+			** if single input variable is in datetime (%t*) format 
+			** generate three separate variables for year, month, day
 			ds `varlist', has(format %t*)
 			if "`r(varlist)'" == "`varlist'" {
 				gen decomposed_gy = year(`varlist')
@@ -111,78 +124,73 @@ quietly{
 				gen decomposed_gd = day(`varlist')
 			}
 			
-			// if single input variable is not in datetime (%t*) format
+			
+			** if single input variable is not in datetime (%t*) format
 			ds `varlist', has(format %t*)
 			if "`r(varlist)'" != "`varlist'" {
 				
-				// if single input variable is not in string format either 
-				// return syntax error
+				** return error if single input variable is not in string format 
 				ds `varlist', has(type string)
 				if "`r(varlist)'" != "`varlist'" {
 					display as error ///
-						`"single Gregorian date input must be in either datetime (%t*) or string ("year/month/day") format"'
+						`"single input must be in either datetime (%t*) or string ("year/month/day") format"'
 					restore
 					exit 198
 				}
 				
-				// if single input variable is in string ("year/month/day") 
-				// format create three separate variables for year, month, day
+				** if single input variable is in string format generate three 
+				** separate variables (knowing that the input is provided in the
+				** year, month, day order
 				ds `varlist', has(type string)
 				if "`r(varlist)'" == "`varlist'" {
 					split `varlist', p("/" | "-" | "+"| ":" | "--" | " ") destring
 				
-					// assign local macros to Gregorian date variables
+					** assign local macros to Gregorian date variables
 					rename `varlist'1 decomposed_gy
 					rename `varlist'2 decomposed_gm
 					rename `varlist'3 decomposed_gd
 				}
 			}
-							
 			
-			// assign local macros to split Gregorian date variables
+			** assign local macros to split Gregorian date variables
 			local gy decomposed_gy
 			local gm decomposed_gm
 			local gd decomposed_gd
 		}
 		
 		
-		// if more than 1 variable is fed into the program 
-		// proceed as if date decomposition is done already
+		** if more than one variable is fed into the program 
+		** proceed as if date decomposition is already done
 		if "`varlist'" != "`1'" {
 		
-			// assign local macros to input Gregorian date variables
+			** assign local macros to input Gregorian date variables
 			local gy `1'
 			local gm `2'
 			local gd `3'
 			
-			// convert any date variable in string format to numeric 
+			** convert any input date variable in string format to numeric
 			ds `varlist', has(type string)
 			destring `r(varlist)', replace float					
 		}
-		** end of input variable check		
 		
-		
-		
-		// display error if Gregorian year is not given in 4 digits
+		** if Gregorian year is not a 4-digit number return error
 		sum `gy'
 		if `r(max)' < 100 {
-			display as error "Gregorian year must be a 4-digit number" 
+			display as error "Gregorian year input must be a 4-digit number" 
 			restore
 			exit 198
 		}
+		/* end of handling inputs */
 		
 		
-		
-		** start of Gregorian to Solar Hijri conversion
+		/* start of Gregorian to Solar Hijri calendar conversion */
 		tempvar days gy_prime
-		
 		gen `days' = `gm'
 		recode `days' (1 = 0) (2 = 31) (3 = 59) (4 = 90)   ///
 					  (5 = 120) (6 = 151) (7 = 181) (8 = 212) ///
 					  (9 = 243) (10 = 273) (11 = 304) (12 = 334)
 
 		gen `gy_prime' = cond(`gm' > 2, `gy' + 1, `gy')
-		display "`type'"
 		replace `days' = 355666 + (365 * `gy') + floor((`gy_prime'+3) / 4) ///
 						 - floor((`gy_prime'+99)/100) + floor((`gy_prime'+399)/400) ///
 						 + `gd' + `days'
@@ -199,40 +207,119 @@ quietly{
 		gen sm = cond(`days' < 186, 1+floor(`days'/31), 7+floor((`days'-186)/30))
 		gen sd = cond(`days' < 186, 1+mod(`days', 31), 1 + mod((`days'-186),30))
 		
-		// save output of conversion in a temporary file named "converted"
+		format sy sm sd %02.0f
+		/* end of Gregorian to Solar Hijri calendar conversion */
+		
+		
+		/* start of handling output(s) */		
+		** single-variable output in string ("year/month/day") format
+		if "`string'" != "" {
+			tempvar sy_str sm_str sd_str
+			tostring sy, gen(`sy_str') usedisplayformat
+			tostring sm, gen(`sm_str') usedisplayformat
+			tostring sd, gen(`sd_str') usedisplayformat
+			
+			gen `string' = `sy_str' + "/" + `sm_str' + "/" + `sd_str'
+			label variable `string' "Solar Hijri date"
+			
+			drop `sy_str' `sm_str' `sd_str'
+		}
+		
+		** single-variable output in Stata datetime (%td) format
+		if "`datetime'" != "" {
+			gen `datetime' = mdy(`gm', `gd', `gy')
+			format `datetime' %td
+			
+			** create Solar Hijri date labels
+			tempvar solarMonth_name sd_str sy_str
+			if "`aesthetic'" == "long" {
+				gen `solarMonth_name' = "Farvarding" if sm == 1
+				replace `solarMonth_name' = "Ordibehesht" if sm == 2
+				replace `solarMonth_name' = "Khordad" if sm == 3
+				replace `solarMonth_name' = "Tir" if sm == 4
+				replace `solarMonth_name' = "Mordad" if sm == 5
+				replace `solarMonth_name' = "Shahrivar" if sm == 6
+				replace `solarMonth_name' = "Mehr" if sm == 7
+				replace `solarMonth_name' = "Aban" if sm == 8
+				replace `solarMonth_name' = "Azar" if sm == 9
+				replace `solarMonth_name' = "Dey" if sm == 10
+				replace `solarMonth_name' = "Bahman" if sm == 11
+				replace `solarMonth_name' = "Esfand" if sm == 12
+				
+				tostring sy, gen(`sy_str') usedisplayformat
+				format sd %01.0f
+				tostring sd, gen(`sd_str') usedisplayformat
+				format sd %02.0f
+				
+				gen solarDate_label = `sd_str' + " " + `solarMonth_name' + " " + `sy_str'
+			}
+			else {
+				gen `solarMonth_name' = "far" if sm == 1
+				replace `solarMonth_name' = "ord" if sm == 2
+				replace `solarMonth_name' = "kho" if sm == 3
+				replace `solarMonth_name' = "tir" if sm == 4
+				replace `solarMonth_name' = "mor" if sm == 5
+				replace `solarMonth_name' = "sha" if sm == 6
+				replace `solarMonth_name' = "meh" if sm == 7
+				replace `solarMonth_name' = "aba" if sm == 8
+				replace `solarMonth_name' = "aza" if sm == 9
+				replace `solarMonth_name' = "dey" if sm == 10
+				replace `solarMonth_name' = "bah" if sm == 11
+				replace `solarMonth_name' = "esf" if sm == 12
+				
+				tostring sy, gen(`sy_str') usedisplayformat
+				tostring sd, gen(`sd_str') usedisplayformat
+				
+				gen solarDate_label = `sd_str' + `solarMonth_name' + `sy_str'
+			}
+			drop `solarMonth_name' `sy_str' `sd_str'
+			
+			** assign desired label to obsevations in datetime format
+			label val `datetime'
+
+			bysort sy sm sd: gen byte group = (_n == 1) 
+			replace group = sum(group) 
+
+			gen long aux_var = _n 
+			local max = group[_N]  
+
+			forval i = 1 / `max' {  
+				su aux_var if group == `i', meanonly 
+				local label = solarDate_label[`r(min)'] 
+				local value = `datetime'[`r(min)'] 
+				label def my_label `value' `"`label'"', modify 	
+			} 
+			
+			label val `datetime' my_label
+			label variable `datetime' "Solar Hijri date"
+			drop aux_var group solarDate_label
+		}		
+		
+		** multiple-variable output in numeric format
+		if "`separate'" != "" {
+			label variable sy "Solar Hijri year"
+			label variable sm "Solar Hijri month"
+			label variable sd "Solar Hijri day"
+			rename (sy sm sd) (`separate') // namelist given in (year month day) order
+		}
+		else {
+			drop sy sm sd
+		}
+		/* end of handling output(s) */
+		
+		
+		** merge Solar Hijri date variable(s) to the original dataset
 		tempfile converted
 		save `converted', replace
 		restore
-		** end of Gregorian to Solar Hijri conversion
-		
-		
-		
-		// merge Solar Hijri date variables to the main dataset fed into the command
 		merge m:1 `varlist' using `converted'
 		drop _merge
+		
+		
+		** remove auxiliary variables generated for calendar conversion
+		** in the single-input case
 		if "`varlist'" == "`1'" {
-			drop `gy' `gm' `gd' // drop auxiliary variables
+			drop `gy' `gm' `gd'
 		}
 }
-		// rename output variables and add variable labels
-		rename sy solarYear
-		rename sm solarMonth
-		rename sd solarDay
-		label variable solarYear "Solar Hijri year"
-		label variable solarMonth "Solar Hijri month"
-		label variable solarDay "Solar Hijri day"
-		
-		// if user has specified a name for single output in string format
-		if "`gen'" != "" {
-			tostring solarYear solarMonth solarDay, replace
-			
-			// add leading zeros to month and day variables
-			replace solarMonth = string(real(solarMonth), "%02.0f") 
-			replace solarDay = string(real(solarDay), "%02.0f") 
-			
-			gen `gen' = solarYear + "/" + solarMonth + "/" + solarDay
-			label variable `gen' "Solar Hijri date"
-			
-			drop solarYear solarMonth solarDay
-		}
 end
