@@ -4,6 +4,7 @@
 {viewerjumpto "Syntax" "greg2sol##syntax"}{...}
 {viewerjumpto "Description" "greg2sol##description"}{...}
 {viewerjumpto "Options" "greg2sol##options"}{...}
+{viewerjumpto "Options" "greg2sol##installation"}{...}
 {viewerjumpto "Examples" "greg2sol##examples"}{...}
 {title:Title}
 
@@ -75,13 +76,20 @@ In the latter case, it is assumed that user has intentionally provided entries i
 {opth aes:thetic(str)} specifies aesthetic format of labels shown in output generated through {opth d:atetime(name)}. Available options are {bf:short} (e.g., {it:01sha1390}) and {bf:long} (e.g., {it:1 Shahrivar 1390}). If not specified, {bf:short} is used as the default option.
 
 
+{marker installation}{...}
+{title:Installation}
+
+{pstd}In order to install {cmd:greg2sol}, run the following command:{p_end}
+{phang2}{cmd:. net install greg2sol, from(https://raw.githubusercontent.com/peymanshahidi/greg2sol/master)}{p_end}
+
+
 {marker examples}{...}
 {title:Examples}
 
 {pstd}String input / Multiple outputs (separate, string, and datetime){p_end}
     {hline}
 {pstd}Setup{p_end}
-{phang2}{cmd:. import delimited using "IRR_USD_histExRate.csv", clear case(preserve)}{p_end}
+{phang2}{cmd:. sysuse IRR_USD_histExRate, clear}{p_end}
 
 {pstd}Convert Gregorian to Solar Hijri{p_end}
 {phang2}{cmd:. greg2sol dateGregorian, separate(yearSolar monthSolar daySolar) string(solarDate_str) datetime(solarDate_datetime) aesthetic(long)}{p_end}
@@ -90,7 +98,7 @@ In the latter case, it is assumed that user has intentionally provided entries i
 {pstd}Datetime input / Separate outputs{p_end}
     {hline}
 {pstd}Setup{p_end}
-{phang2}{cmd:. import delimited using "IRR_USD_histExRate.csv", clear case(preserve)}{p_end}
+{phang2}{cmd:. sysuse IRR_USD_histExRate, clear}{p_end}
 
 {pstd}Generate a Gregorian variable in datetime format{p_end}
 {phang2}{cmd:. gen dateGregorian_datetime = date(dateGregorian, "YMD")}{p_end}
@@ -103,7 +111,7 @@ In the latter case, it is assumed that user has intentionally provided entries i
 {pstd}Separate inputs / String output{p_end}
     {hline}
 {pstd}Setup{p_end}
-{phang2}{cmd:. import delimited using "IRR_USD_histExRate.csv", clear case(preserve)}{p_end}
+{phang2}{cmd:. sysuse IRR_USD_histExRate, clear}{p_end}
 
 {pstd}Generate separate Gregorian date variables{p_end}
 {phang2}{cmd:. split dateGregorian, p("-") destring}{p_end}

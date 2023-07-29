@@ -10,4 +10,4 @@ d License: BSD 3-Clause License
 d 
 f greg2sol.ado
 f greg2sol.sthlp
-f IRR_USD_histExRate.csv
+f IRR_USD_histExRate.dta
