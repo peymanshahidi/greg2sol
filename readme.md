@@ -1,65 +1,80 @@
 # `greg2sol`: Gregorian to Solar Hijri Calendar Conversion in Stata
 #### Developed by Peyman Shahidi
-#### Last updated on 29 Tir 1402 (20 July 2023)
+#### Last updated on 29 July 2023 (7 Mordad 1402)
 
 *******************************************************************************
 ## Command Description
-The `greg2sol` command takes Gregorian date variable(s) as input and flexibly produces corresponding Solar Hijri calendar dates in one of two formats: 1) a string under a user-specified variable name, or 2) three variables for each of the Solar Hijri year, month, day values in numeric format (default output).
+The `greg2sol` command takes Gregorian date variable(s) as input and produces corresponding Solar Hijri dates in up to three different types of outputs.
+
+<br>
+
+Types of Gregorian date input(s):
+
+&nbsp; 1. A string variable in `"year/month/day"` format (e.g., `"2011/8/23"`)
+&nbsp; 2. A Stata datetime variable in `%t*` format (e.g., `23aug2011` with underlying value 18862)
+&nbsp; 3. Three separate variables; one for each of year, month, day values (in this order)
+
+Types of Solar Hijri date output(s):
+
+&nbsp; 1. A string variable in `"year/month/day"` format (e.g., `"1390/06/01"`)
+&nbsp; 2. A Stata datetime variable in `%td` format (e.g., `01sha1390` with underlying value 18862)
+&nbsp; 3. Three separate variables; one for each of year, month, day values
 
 <br>
 
 ### Examples:
-1. Suppose Gregorian date value `2011/8/23` is stored in variable `dateGreg` (either in a string format or in Stata `%t*` datetime format) and one wants to obtain the corresponding Solar Hijri calendar date `1390/6/1` under a new variable called `dateSolar` in a string format. The following command does this conversion:
+1. Suppose Gregorian date value `2011/8/23` is stored in variable `dateGreg` (either in string format or in Stata %t* datetime formats) and one wants to obtain the corresponding Solar Hijri calendar date `1390/6/1` under a new variable called `dateSolarHijri` in Stata %td format with Solar Hijri labels. The following command does this conversion:
 ```
-greg2sol dateGreg, gen(dateSolar)
+greg2sol dateGreg, datetime(dateSolarHijri)
 ```
-2. If the Gregorian input date value `2011/8/23` is stored in three separate variables `yearGreg` (2011), `monthGreg` (8), `dayGreg` (23), and the output is to be returned in three separate variables in numeric format [under default names `solarYear`, `solarMonth`, and `solarDay`], one can use the following command for conversion:
+2. Suppose Gregorian date value `2011/8/23` is stored in three variables `yearGreg` (2011), `monthGreg` (8), `dayGreg` (23), and the corresponding Solar Hijri date `1390/6/1` is to be returned under a single output called `dateSolar` in string format. The following command does this conversion:
 ```
-greg2sol yearGreg monthGreg dayGreg
+greg2sol yearGreg monthGreg dayGreg, string(dateSolar)
 ```
 *******************************************************************************
 ## Notes
 
 ### Note 1: 
-The `greg2sol` command can manage two types of inputs:
+The `greg2sol` command can manage three types of inputs:
 
-&nbsp; 1. A single variable, either in `"year/month/day"` string format (e.g., `"2011/8/23"`) where the command is able to flexibly handle `/`, `-`, `+`, `:`,  `--`, and <code>&nbsp;</code> (white space) as delimiters, or in Stata datetime formats `%t*` (e.g., `23aug2011`).
+&nbsp; 1. A single string variable in `"year/month/day"` format (e.g., `"2011/8/23"`) where the command is able to flexibly handle `/`, `-`, `+`, `:`,  `--`, and <code>&nbsp;</code> (white space) as delimiters.
 
-&nbsp; 2. Three separate variables in `year`, `month`, `day` order. In this case each input variable can be in either string or numeric format.
+&nbsp; 2. A single variable in one of Stata datetime formats `%t*` (e.g., `23aug2011` with underlying value 18862).
+
+&nbsp; 3. Three separate variables in year, month, day order. In this case each input variable can be in either string or numeric format.
 
 <br>
 
 ### Note 2:
-The `greg2sol` command can produce two types of outputs:
+The `greg2sol` command can produce up to three types of outputs:
 
-&nbsp; 1. Three separate variables under default names `solarYear`, `solarMonth`, and `solarDay`, all in numeric format. (This is the default form of output)
+&nbsp; 1. A single variable in `"year/month/day"` string format (e.g., `"1390/06/01"`).
 
-&nbsp; 2. A single string variable in `"year/month/day"` format (e.g., `"1390/06/01"`). This form of output is enabled if the user specifies a name for the output variable through the `gen(.)` option of the program.
+&nbsp; 2. A single variable in Stata datetime format `%td` (e.g., `01sha1390` with underlying value 18862).
+
+&nbsp; 3. Three separate variables, one for each of year, month, day values, all in numeric format.
 
 <br>
 
 ### Note 3:
-The Gregorian `year` value must be a 4-digit number. This is intentional so that the user, rather than the program, makes the distinction between 2-digit abbreviations of 19-- or 20-- Gregorian years (e.g., Gregorian abbreviation `05` can correspond to either 1905 or 2005 in conventional use cases). If all inputs are given in a 2-digit format (e.g., `"11/8/23"` in the single string input use case of the program) the `greg2sol` command returns a syntax error. However, if some observations contain 4-digit year values while others contain 2-digit year values (e.g., one observation in the form of `"11/8/23"` and another in the form of `"2012/8/23"`) the command **DOES NOT** return a syntax error. In the latter case, it is assumed that the user has intentionally provided entries in such manner.
-
+The Gregorian `year` value must be a 4-digit number. This is intentional so that the user, rather than the program, makes the distinction between 2-digit abbreviations of 19-- or 20-- Gregorian years (e.g., `05` can correspond to either 1905 or 2005 in conventional use cases). If all inputs are given in a 2-digit format (e.g., `11/8/23` in the single-input use case of the program) the `greg2sol` command returns an error. However, if some observations contain 4-digit year values while others contain 2-digit values (e.g., `11/8/23` as one observation and `2012/8/23` as another) the command DOES NOT return an error. In the latter case, it is assumed that the user has intentionally provided entries in such manner.
 
 *******************************************************************************
 ## Test Materials 
-The `greg2sol_test.do` file contains examples for different use cases of the command (single- or three-variable input as well as single- or three-variable output). To run the `greg2sol_test.do` script take the following steps:
+The `greg2sol_test.do` file contains examples for different use cases of the command. To run the test script follow these steps:
 
 &nbsp;1. Download the `greg2sol` project files.
 
-&nbsp;2. Define global macro `root` in `line 16` of the `greg2sol_test.do` script to be the path of `greg2sol` folder on your machine (the path of files downloaded in previous step).
+&nbsp;2. Set global macro `root` in `line 16` of the `greg2sol_test.do` script as the path of `greg2sol` folder on your machine (the path of files downloaded in previous step).
 
 &nbsp;3. Run the script.
-
-P.S.: The `greg2sol_test.do` script changes the adopath direcotry in your machine to the path of `greg2sol` folder. If you do not wish to have this change made, you can put the `greg2sol.ado` file in your personal adopath directory and comment out `line 19` in the script.
 
 
 *******************************************************************************
 ## Citation
 If you use this command, please cite it as below:
 ```
-Shahidi, Peyman, Gregorian to Solar Hijri Calendar Conversion in Stata, (2023), GitHub repository, https://github.com/peymanshahidi/greg2sol
+Shahidi, Peyman, "Gregorian to Solar Hijri Calendar Conversion in Stata," 2023, GitHub repository, https://github.com/peymanshahidi/greg2sol.
 ```
 
 *******************************************************************************
