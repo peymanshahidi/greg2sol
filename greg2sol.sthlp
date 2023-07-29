@@ -141,7 +141,7 @@ Shahidi, Peyman, 2023, {browse "https://github.com/peymanshahidi/greg2sol":{it:G
 {title:Acknowledgements}
 
 {pstd}Thanks are due to Hosein Joshaghani, who encouraged me to develop this command,
-and {bf:d-learn.ir}, whose {browse "https://d-learn.ir/p/usd-price/":{historical IRR to USD exchange rate dataset}} is used for the test materials.{p_end}
+and {bf:d-learn.ir}, whose {browse "https://d-learn.ir/p/usd-price/":historical IRR to USD exchange rate dataset} is used for the test materials.{p_end}
 
 
 {marker contact}{...}
