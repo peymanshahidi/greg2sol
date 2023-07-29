@@ -1,82 +1,12 @@
-*******************************************************************************
+********************************************************************************
 ** Title: 	  	   Conversion of Gregorian calendar to Solar Hijri calendar
 ** By:								   Peyman Shahidi
 ** ado-file name:					    greg2sol.ado
-** Version date:	  	    	7 Mordad 1402 - 29 July 2023
-*******************************************************************************
-*******************************************************************************
-** The "greg2sol" command takes Gregorian date variable(s) as input and produces
-** corresponding Solar Hijri dates in up to three different types of outputs.
-**
-** Types of Gregorian date input(s):
-** 1. A string variable in "year/month/day" format (e.g., "2011/8/23")
-** 2. A Stata datetime variable in %t* format (e.g., 23aug2011 with value 18862)
-** 3. Three separate variables; one for each of year, month, day (in this order)
-**
-** Types of Solar Hijri date output(s):
-** 1. A string variable in "year/month/day" format (e.g., "1390/06/01")
-** 2. A Stata datetime variable in %td format (e.g., 01sha1390 with value 18862)
-** 3. Three separate variables; one for each of year, month, day
-**
-**
-** Examples:
-**
-** 1. Suppose Gregorian date value "2011/8/23" is stored in variable "dateGreg" 
-** (either in string format or in Stata %t* datetime formats) and one wants to 
-** obtain the corresponding Solar Hijri calendar date "1390/6/1" under a new 
-** variable called "dateSolarHijri" in Stata %td format with Solar Hijri labels. 
-** The following command does this conversion:
-**
-**
-** greg2sol dateGreg, datetime(dateSolarHijri)
-**
-**
-** 2. Suppose Gregorian date value "2011/8/23" is stored in three variables 
-** "yearGreg" (2011), "monthGreg" (8), "dayGreg" (23), and the corresponding 
-** Solar Hijri date "1390/6/1" is to be returned under a single output called 
-** "dateSolar" in string format. The following command does this conversion:
-**
-**
-** greg2sol yearGreg monthGreg dayGreg, string(dateSolar)
-**
-**
-*******************************************************************************
-*******************************************************************************
-** Note 1: 
-** The "greg2sol" command can manage three types of inputs:
-** 1. A single variable in "year/month/day" string format (e.g., 
-**    "2011/8/23") where the command is able to flexibly handle "/", "-", "+", 
-**    ":",  "--", " " (white space) as delimiters.
-** 2. A single variable in Stata datetime formats %t* (e.g., "23aug2011" with 
-**    value 18862)
-** 3. Three separate variables in year, month, day order. In this case each
-**    input variable can be in either string or numeric format.
-**
-**
-** Note 2: 
-** The "greg2sol" command can produce up to three types of outputs:
-** 1. A single variable in "year/month/day" string format (e.g., "1390/06/01").
-** 2. A single variable in Stata datetime format %td (e.g., "01sha1390" with 
-**    value 18862)
-** 3. Three separate variables, one for each of year, month, day, all in numeric 
-**    format.
-**
-**
-** Note 3:
-** The Gregorian "year" value must be a 4-digit number. This is intentional so 
-** that the user, rather than the program, makes the distinction between 2-digit 
-** abbreviations of 19-- or 20-- Gregorian years (e.g., "05" can correspond to 
-** either 1905 or 2005 in conventional use cases). If all inputs are given in a 
-** 2-digit format (e.g., "11/8/23" in the single-input use case of the program) 
-** the "greg2sol" command returns an error. However, if some observations 
-** contain 4-digit year values while others contain 2-digit year values (e.g., 
-** one observation in the form of "11/8/23" and another in the form of 
-** "2012/8/23") the command DOES NOT return an error. In the latter case, it is 
-** assumed that the user has intentionally provided entries in such manner.
-*******************************************************************************
+** Version date:	  	    	8 Mordad 1402 - 30 July 2023
+********************************************************************************
 program greg2sol
 		version 14.0
-		syntax varlist(min=1 max=3) [if/] [, SEParate(namelist min=3 max=3) ///
+		syntax varlist(min=1 max=3) [if/] [in/] [, SEParate(namelist min=3 max=3) ///
 												STring(name) ///
 												Datetime(name) ///
 												AESthetic(string)]
@@ -94,10 +24,14 @@ quietly{
 		ds
 		local original_vars `r(varlist)'
 
-		** mask the if condition
+		** mask the in and if conditions
+		if "`in'" != "" {
+			keep in `in'
+		}
 		if "`if'" != "" {
 			keep if `if'
 		}
+		
 		
 		** only keep Gregorian date variables for lower computation load
 		keep `varlist'
