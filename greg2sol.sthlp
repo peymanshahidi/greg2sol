@@ -4,7 +4,7 @@
 {viewerjumpto "Syntax" "greg2sol##syntax"}{...}
 {viewerjumpto "Description" "greg2sol##description"}{...}
 {viewerjumpto "Options" "greg2sol##options"}{...}
-{viewerjumpto "Options" "greg2sol##installation"}{...}
+{viewerjumpto "Installation" "greg2sol##installation"}{...}
 {viewerjumpto "Examples" "greg2sol##examples"}{...}
 {title:Title}
 
@@ -94,6 +94,9 @@ In the latter case, it is assumed that user has intentionally provided entries i
 {pstd}Convert Gregorian to Solar Hijri{p_end}
 {phang2}{cmd:. greg2sol dateGregorian, separate(yearSolar monthSolar daySolar) string(solarDate_str) datetime(solarDate_datetime) aesthetic(long)}{p_end}
 
+{pstd}Plot timeseries of IRR to USD exchange rate with Solar Hijri labels on x-axis{p_end}
+{phang2}{cmd:. graph twoway line IRR_USD solarDate_datetime, xlabel(, grid) graphregion(margin(r+6 t+2)) xlabel(7942 11626 15500 19386 23066, valuelabel)}{p_end}
+
 
 {pstd}Datetime input / Separate outputs{p_end}
     {hline}
@@ -123,8 +126,10 @@ In the latter case, it is assumed that user has intentionally provided entries i
 {phang2}{cmd:. greg2sol gregorianYear gregorianMonth gregorianDay, st(solarDate_str)}{p_end}
 
 
-{marker references}{...}
-{title:References}
+{marker citation}{...}
+{title:Citation}
+
+{pstd}If you use this command, please cite it as below:{p_end}
 
 {phang}
 Shahidi, Peyman, 2023, {browse "https://github.com/peymanshahidi/greg2sol":{it:Gregorian to Solar Hijri Calendar Conversion in Stata},} GitHub repository, https://github.com/peymanshahidi/greg2sol.
