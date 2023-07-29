@@ -1,0 +1,13 @@
+v 1
+d greg2sol
+d Gregorian to Solar Hijri Calendar Conversion
+d
+d Peyman Shahidi, Massachusetts Institute of Technology
+d
+d Distribution-Date:   20230730
+d
+d License: BSD 3-Clause License
+d 
+f greg2sol.ado
+f greg2sol.sthlp
+f IRR_USD_histExRate.csv
