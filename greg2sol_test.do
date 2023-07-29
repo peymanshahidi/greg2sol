@@ -53,7 +53,7 @@ graph twoway line IRR_USD solarDate_datetime, ///
 
 *===============================================================================
 ** 2. Gregorian input is single variable in Stata datetime (%t*) format
-import delimited "${df_path}/IRR_USD_histExRate.csv", clear case(preserve)
+sysuse IRR_USD_histExRate, clear
 gen dateGregorian_datetime = date(dateGregorian, "YMD")
 format dateGregorian_datetime %td
 greg2sol dateGregorian_datetime, sep(yearSolar monthSolar daySolar)
@@ -62,7 +62,7 @@ sort yearSolar monthSolar daySolar
 
 *===============================================================================
 ** 3. Gregorian inputs are three variables in provided in year, month, day order
-import delimited "${df_path}/IRR_USD_histExRate.csv", clear case(preserve)
+sysuse IRR_USD_histExRate, clear
 split dateGregorian, p("-") destring
 rename dateGregorian1 gregorianYear
 rename dateGregorian2 gregorianMonth
