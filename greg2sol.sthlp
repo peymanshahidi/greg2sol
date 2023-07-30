@@ -11,7 +11,7 @@
 {title:Title}
 
 {phang}
-{bf:greg2sol} {hline 2} Gregorian to Solar Hijri Calendar Conversion
+{bf:greg2sol} {hline 2} Gregorian to Solar Hijri Calendar Conversion in Stata
 
 
 {marker syntax}{...}

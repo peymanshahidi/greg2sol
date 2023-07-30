@@ -1,13 +1,18 @@
 v 1
 d greg2sol
-d Gregorian to Solar Hijri Calendar Conversion
+d Gregorian to Solar Hijri Calendar Conversion in Stata
 d
-d Peyman Shahidi, Massachusetts Institute of Technology
+d By: Peyman Shahidi, Massachusetts Institute of Technology
+d
+d Type "help greg2sol" to see detailed description and examples of the command
+d
+d Also see my GitHub for a related command "sol2greg"
 d
 d Distribution-Date:   20230730
 d
 d License: BSD 3-Clause License
-d 
+d
+d Support: shahidi.peyman96@gmail.com
 f greg2sol.ado
 f greg2sol.sthlp
-f IRR_USD_histExRate.dta
+F IRR_USD_histExRate.dta
