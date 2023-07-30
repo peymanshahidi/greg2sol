@@ -4,7 +4,7 @@
 
 *******************************************************************************
 ## Description
-The `greg2sol` command takes Gregorian date variable(s) as input and generates the corresponding Solar Hijri dates as output(s). `greg2sol` supports multiple variable formats (string, numeric, datetime) for both its inputs and its outputs.
+The `greg2sol` command takes Gregorian date variable(s) as input and generates the corresponding Solar Hijri dates as output(s). `greg2sol` supports multiple variable formats (string, numeric, datetime) in both its inputs and outputs.
 
 
 *******************************************************************************
@@ -17,6 +17,8 @@ The `greg2sol` command takes Gregorian date variable(s) as input and generates t
 
 &nbsp; 3. Three separate variables in year, month, day order. In this case each input variable can be in either string or numeric format.
 
+<br>
+
 `greg2sol` can generate up to three types of Solar Hijri date output(s):
 
 &nbsp; 1. A single variable in `"year/month/day"` string format (e.g., `"1390/06/01"`).
@@ -28,15 +30,15 @@ The `greg2sol` command takes Gregorian date variable(s) as input and generates t
 
 *******************************************************************************
 ## Examples
-1. Suppose Gregorian date value `2011/8/23` is stored in variable `dateGreg` (either in string format or in Stata %t* datetime formats) and one wants to obtain the corresponding Solar Hijri calendar date `1390/6/1` under a new variable called `dateSolarHijri` in Stata %td format with Solar Hijri labels. The following command does this conversion:
+1. Suppose Gregorian date value `2011/8/23` is stored in variable `dateGreg` (either in string or in Stata datetime format) and one wants to obtain the corresponding Solar Hijri calendar date `1390/06/01` under a new variable called `dateSolarHijri` in Stata `%td` format with Solar Hijri labels. The following command does this conversion:
 ```
 greg2sol dateGreg, datetime(dateSolarHijri)
 ```
-2. Suppose Gregorian date value `2011/8/23` is stored in three variables `yearGreg` (2011), `monthGreg` (8), `dayGreg` (23), and the corresponding Solar Hijri date `1390/6/1` is to be returned under a single output called `dateSolar` in string format. The following command does this conversion:
+2. Suppose Gregorian date value `2011/8/23` is stored in three variables `yearGreg` (2011), `monthGreg` (8), `dayGreg` (23), and the corresponding Solar Hijri date `1390/06/01` is to be returned under a single output called `dateSolar` in string format. The following command does this conversion:
 ```
 greg2sol yearGreg monthGreg dayGreg, string(dateSolar)
 ```
-For further examples and more detailed description of use cases refer to the test materials or read accompanying help file of the command.
+For further examples and more detailed description of use cases refer to test materials or read the accompanying help file of the command.
 
 *******************************************************************************
 ## Installation and Test Materials 
@@ -49,6 +51,8 @@ After installation, a comprehensive help file containing detailed description of
 ```
 help greg2sol
 ```
+
+<br>
 
 Although reading the help file before using `greg2sol` is strongly recommended, a script for testing different use cases of the command is nevertheless provided for user's convenience. The file `greg2sol_test.do` provides three examples of using `greg2sol` for Gregorian to Solar Hijri conversion. Follow the steps below to run the test examples:
 
