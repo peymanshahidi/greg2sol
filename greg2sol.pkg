@@ -4,9 +4,11 @@ d Gregorian to Solar Hijri Calendar Conversion in Stata
 d
 d By: Peyman Shahidi, Massachusetts Institute of Technology
 d
-d Type "help greg2sol" to see detailed description and examples of the command
+d Type "help greg2sol" to see detailed description and examples
+d
 d
 d Also see my GitHub for a related command "sol2greg"
+d
 d
 d Distribution-Date:   20230730
 d

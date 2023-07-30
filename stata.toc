@@ -1,4 +1,5 @@
 v 1
+d Gregorian to Solar Hijri Calendar Conversion in Stata
 d Peyman Shahidi, Massachusetts Institute of Technology
 d 
 d Also see my GitHub for a related command "sol2greg"
