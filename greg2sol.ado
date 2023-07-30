@@ -7,14 +7,14 @@
 program greg2sol
 		version 14.0
 		syntax varlist(min=1 max=3) [if/] [in/] [, SEParate(namelist min=3 max=3) ///
-												STring(name) ///
-												Datetime(name) ///
-												AESthetic(string)]
+													STring(name) ///
+													Datetime(name) ///
+													AESthetic(string)]
 		tokenize `varlist'
 		
 		** return error if none of output options are specified
 		if ("`string'" == "" & "`datetime'" == "" & "`separate'" == ""){
-			display as error `"at least one type of output must be specified"'
+			display as error `"at least one output option must be specified"'
 			exit 198
 		}
 		
@@ -74,12 +74,12 @@ quietly{
 				
 				** if single input variable is in string format generate three 
 				** separate variables (knowing that the input is provided in the
-				** year, month, day order
+				** year, month, day order)
 				ds `varlist', has(type string)
 				if "`r(varlist)'" == "`varlist'" {
 					split `varlist', p("/" | "-" | "+"| ":" | "--" | " ") destring
 				
-					** assign local macros to Gregorian date variables
+					** rename Gregorian date variables to assign macros
 					rename `varlist'1 decomposed_gy
 					rename `varlist'2 decomposed_gm
 					rename `varlist'3 decomposed_gd
@@ -110,7 +110,7 @@ quietly{
 		** if Gregorian year is not a 4-digit number return error
 		sum `gy'
 		if `r(max)' < 100 {
-			display as error "Gregorian year input must be a 4-digit number" 
+			display as error "Gregorian year must be a 4-digit number" 
 			restore
 			exit 198
 		}
