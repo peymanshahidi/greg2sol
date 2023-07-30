@@ -54,14 +54,15 @@ help greg2sol
 
 <br>
 
-Although reading the help file before using `greg2sol` is strongly recommended, a script for testing different use cases of the command is nevertheless provided for user's convenience. The file `greg2sol_test.do` provides three examples of using `greg2sol` for Gregorian to Solar Hijri conversion. Follow the steps below to run the test examples:
+Although reading the help file before using `greg2sol` is strongly recommended, a script for testing different use cases of the command is nevertheless provided for user's convenience. The file `greg2sol_test.do` provides three examples of `greg2sol` being used for Gregorian to Solar Hijri conversion. Follow the steps below to run the test examples:
 
 &nbsp; 1. Download `greg2sol_test.do` from present repository.
 
-&nbsp; 2. Install the `greg2sol` command (lines 15 to 18 of the script take care of this for you).
+&nbsp; 2. Install the `greg2sol` command (lines 15 to 17 of the `greg2sol_test.do` script does this for you).
 
 &nbsp; 3. Run the examples in lower half of the script one at a time.
 
+Note that the dataset used in test examples is automatically copied to your working directory during installation of the command. However, if you wish to skip the installation step please make sure that a copy of `IRR_USD_histExRate.dta` dataset, available in current repository, lives in your working direcotry before running the examples.
 
 *******************************************************************************
 ## Citation
