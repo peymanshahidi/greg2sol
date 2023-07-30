@@ -134,7 +134,7 @@ In the latter case, it is assumed that user has intentionally provided entries i
 {pstd}If you use this command, please cite it as below:{p_end}
 
 {phang}
-Shahidi, Peyman, 2023, {browse "https://github.com/peymanshahidi/greg2sol":{it:Gregorian to Solar Hijri Calendar Conversion in Stata},} GitHub repository, https://github.com/peymanshahidi/greg2sol.
+Shahidi, Peyman, 2023, {browse "https://github.com/peymanshahidi/greg2sol":"{it:Gregorian to Solar Hijri Calendar Conversion in Stata},"} GitHub repository, https://github.com/peymanshahidi/greg2sol.
 
 
 {marker acknowledgements}{...}
