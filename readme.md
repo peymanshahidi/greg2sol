@@ -12,12 +12,17 @@ The `greg2sol` command takes Gregorian date variable(s) as input and generates t
 `greg2sol` accommodates three types of Gregorian date input(s):
 
 &nbsp; 1. A single string variable in `"year/month/day"` format (e.g., `"2011/8/23"`) where the command is able to flexibly handle `/`, `-`, `+`, `:`,  `--`, and <code>&nbsp;</code> (white space) as delimiters.
+
 &nbsp; 2.  A single variable in one of Stata datetime formats `%t*` (e.g., `23aug2011` with underlying value 18862).
+
 &nbsp; 3. Three separate variables in year, month, day order. In this case each input variable can be in either string or numeric format.
 
 `greg2sol` can generate up to three types of Solar Hijri date output(s):
+
 &nbsp; 1. A single variable in `"year/month/day"` string format (e.g., `"1390/06/01"`).
+
 &nbsp; 2. A single variable in Stata datetime format `%td` (e.g., `01sha1390` with underlying value 18862).
+
 &nbsp; 3. Three separate variables, one for each of year, month, day values, all in numeric format.
 
 
@@ -48,7 +53,9 @@ help greg2sol
 Although reading the help file before using `greg2sol` is strongly recommended, a script for testing different use cases of the command is nevertheless provided for user's convenience. The file `greg2sol_test.do` provides three examples of using `greg2sol` for Gregorian to Solar Hijri conversion. Follow the steps below to run the test examples:
 
 &nbsp; 1. Download `greg2sol_test.do` from present repository.
+
 &nbsp; 2. Install the `greg2sol` command (lines 15 to 18 of the script take care of this for you).
+
 &nbsp; 3. Run the examples in lower half of the script one at a time.
 
 
