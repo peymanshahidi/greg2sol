@@ -12,8 +12,7 @@ set more off
 set scheme s1color
 
 ** install (or overwrite) the "greg2sol" command
-cap ssc uninstall greg2sol
-cap program drop greg2sol
+cap ado uninstall greg2sol
 cap net install greg2sol, ///
 		from("https://raw.githubusercontent.com/peymanshahidi/greg2sol/master/")
 
