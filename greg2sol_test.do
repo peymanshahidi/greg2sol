@@ -32,17 +32,17 @@ cap net install greg2sol, ///
 ** 2. a Stata datetime variable in %td format (e.g., 01sha1390 with value 18862)
 ** 3. three separate variables; one for each of year, month, day
 **
-** Below three examples are given, each using one of three possible  input types
+** Below three examples are given, each displaying use case of one input type
 
 *===============================================================================
-** 1. Gregorian input is a single variable in string format ("year/month/day")
+** Example 1:
+** Gregorian input is a single variable in string format ("year/month/day")
+** all three types of output are concurrently generated through a single command
 sysuse IRR_USD_histExRate, clear
 greg2sol dateGregorian, separate(yearSolar monthSolar daySolar) ///
 						string(solarDate_str) ///
 						datetime(solarDate_datetime) aesthetic(long)
 sort solarDate_datetime
-// all three types of output are concurrently generated through a single command
-
 
 ** Solar Hijri labels in datetime-format outputs (e.g., the "solarDate_datetime"
 ** variable generated above) are preserved while plotting graphs
@@ -52,7 +52,9 @@ graph twoway line IRR_USD solarDate_datetime, ///
 
 
 *===============================================================================
-** 2. Gregorian input is single variable in Stata datetime (%t*) format
+** Example 2:
+** Gregorian input is single variable in Stata datetime (%t*) format
+** Solar Hijri output is returned in three separate year, month, day variables
 sysuse IRR_USD_histExRate, clear
 gen dateGregorian_datetime = date(dateGregorian, "YMD")
 format dateGregorian_datetime %td
@@ -61,7 +63,9 @@ sort yearSolar monthSolar daySolar
 
 
 *===============================================================================
-** 3. Gregorian inputs are three variables in provided in year, month, day order
+** Example 3:
+** Gregorian inputs are three variables provided in year, month, day order
+** Solar Hijri output is to be returned under a single string variable
 sysuse IRR_USD_histExRate, clear
 split dateGregorian, p("-") destring
 rename dateGregorian1 gregorianYear
