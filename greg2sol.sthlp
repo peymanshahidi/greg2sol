@@ -35,7 +35,7 @@
 {syntab:Datetime Label Aesthetics}
 {p2coldent :{opth aes:thetic(str)}}specify aesthetic format of labels in output of {opth d:atetime(name)} option.{p_end}
 {synoptline}
-{pstd}* Any number of output options can be specified concurrently but specifying at least one is required.
+{pstd}* Any number of output options can be specified concurrently, but specifying at least one is required.
 
 
 {marker description}{...}
@@ -45,16 +45,16 @@
 {cmd:greg2sol} takes Gregorian dates in {varlist} or {varname} and generates
 corresponding Solar Hijri dates under new variable(s). {cmd:greg2sol} accommodates three different types of input:
 
-{phang}1. A string variable in "{bf:year/month/day}" format (e.g., "{it:2011/8/23}") where the command can handle "/", "-", "+", ":",  "--", " " (white space) as delimiters.{p_end}
+{phang}1. A string variable in "{bf:year/month/day}" format (e.g., "{it:2011/08/23}") where the command can handle "/", "-", "+", ":",  "--", " " (white space) as delimiters.{p_end}
 {phang}2. A Stata datetime variable in {bf:%t*} format (e.g., {it:23aug2011} in {bf:%td} format with underlying value 18862).{p_end}
 {phang}3. Three separate variables in year, month, day order. In this case each input variable can be in either string or numeric format.{p_end}
 
 {phang} Note: The Gregorian {it:year} value must be a 4-digit number.
 This is intentional so that the user, rather than the program, makes the distinction between 2-digit abbreviations of 19-- or 20-- Gregorian years
 (e.g., 05 can correspond to either 1905 or 2005 in conventional use cases). If all inputs are given in a 2-digit format
-(e.g., {it:11/8/23} in the single-input use case of the program) {cmd:greg2sol} returns an error.
+(e.g., {it:11/08/23} in the single-input use case of the program), {cmd:greg2sol} returns an error.
 However, if some observations contain 4-digit year values while others contain 2-digit year values
-(e.g., one observation in the form of {it:11/8/23} and another in the form of {it:2012/8/23}) the command {it:does not} return an error.
+(e.g., one observation in the form of {it:11/08/23} and another in the form of {it:2012/08/23}) the command {it:does not} return an error.
 In the latter case, it is assumed that user has intentionally provided entries in such manner.{p_end}
 
 
@@ -67,15 +67,16 @@ In the latter case, it is assumed that user has intentionally provided entries i
 {opth sep:arate(namelist)} creates three separate year, month, day variables associated with Solar Hijri date values. Names of three output variables are provided via {it:namelist} in year, month, day order.
 
 {phang}
-{opth st:ring(name)} creates a single string variable associated with Solar Hijri dates in "{it:year/month/day}" format. Name of output variable is provided via {it:name}.
+{opth st:ring(name)} creates a single string variable associated with Solar Hijri dates in "{bf:year/month/day}" format. Name of output variable is provided via {it:name}.
 
 {phang}
 {opth d:atetime(name)} creates a single variable in {bf:%td} datetime format with Solar Hijri dates as observation labels. Name of output variable is provided via {it:name}. Aesthetics of Solar Hijri date label can be changed through the {opth aes:thetic(str)} option.
 
-{dlgtab:Datetime Label Aesthetics}
+{dlgtab:Datetime Format}
 
 {phang}
 {opth aes:thetic(str)} specifies aesthetic format of labels shown in output generated through {opth d:atetime(name)}. Available options are {bf:short} (e.g., {it:01sha1390}) and {bf:long} (e.g., {it:1 Shahrivar 1390}). If not specified, {bf:short} is used as the default option.
+Note that, under the current version of {cmd:greg2sol}, even if the datetime format of output is changed the Solar Hijri labels remains untocuhed (i.e., if {bf:aesthetic(short)} is specified and the user changes the output format to {bf:%tC}, the label is still shown as {it:01sha1390}).
 
 
 {marker installation}{...}
@@ -141,7 +142,7 @@ Shahidi, Peyman, 2023, {browse "https://github.com/peymanshahidi/greg2sol":"{it:
 {title:Acknowledgements}
 
 {pstd}Thanks are due to Hosein Joshaghani, who encouraged me to develop this command,
-and {bf:d-learn.ir}, whose {browse "https://d-learn.ir/p/usd-price/":historical IRR to USD exchange rate dataset} is used in test materials.{p_end}
+and {bf:d-learn.ir}, whose {browse "https://d-learn.ir/p/usd-price/":historical IRR to USD exchange rate dataset} is used in the test materials.{p_end}
 
 
 {marker contact}{...}
