@@ -20,7 +20,7 @@ The `greg2sol` command takes Gregorian date variable(s) as input and generates t
 
 <br>
 
-`greg2sol` can generate up to three types of Solar Hijri date output(s):
+`greg2sol` can generate up to three types of Solar Hijri date outputs:
 
 &nbsp; 1. A single variable in `"year/month/day"` string format (e.g., `"1390/06/01"`).
 
