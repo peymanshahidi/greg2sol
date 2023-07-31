@@ -73,6 +73,7 @@ If you use `greg2sol` in your work, please cite it as below:
 ```
 Shahidi, Peyman, 2023, "Gregorian to Solar Hijri Calendar Conversion in Stata," GitHub repository, https://github.com/peymanshahidi/greg2sol.
 ```
+The citation information can be found in the `CITATION.bib` file.
 
 
 *******************************************************************************
