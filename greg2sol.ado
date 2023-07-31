@@ -2,14 +2,14 @@
 ** Title: 	  	   Conversion of Gregorian calendar to Solar Hijri calendar
 ** By:								   Peyman Shahidi
 ** ado-file name:					    greg2sol.ado
-** Version date:	  	    	8 Mordad 1402 - 30 July 2023
+** Version date:	  	    	9 Mordad 1402 - 31 July 2023
 ********************************************************************************
 program greg2sol
 		version 14.0
 		syntax varlist(min=1 max=3) [if/] [in/] [, SEParate(namelist min=3 max=3) ///
 													STring(name) ///
 													Datetime(name) ///
-													AESthetic(string)]
+													AESthetic(str)]
 		tokenize `varlist'
 		
 		** return error if none of output options are specified
