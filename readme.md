@@ -14,7 +14,7 @@ The `greg2sol` command takes Gregorian date variable(s) as input and generates t
 
 &nbsp; 1. A single string variable in `"year/month/day"` format (e.g., `"2011/08/23"`) where the command is able to flexibly handle `/`, `-`, `+`, `:`,  `--`, and <code>&nbsp;</code> (white space) as delimiters.
 
-&nbsp; 2.  A single variable in one of Stata datetime formats `%t*` (e.g., `23aug2011` with underlying value 18862).
+&nbsp; 2. A single variable in one of Stata datetime formats `%t*` (e.g., `23aug2011` with underlying value 18862).
 
 &nbsp; 3. Three separate variables in year, month, day order. In this case each input variable can be in either string or numeric format.
 
@@ -62,7 +62,7 @@ Although reading the help file before using `greg2sol` is strongly recommended, 
 
 &nbsp; 2. Install the `greg2sol` command (lines 15 to 17 of the `greg2sol_test.do` script does this for you).
 
-&nbsp; 3. Run the examples in lower half of the script one at a time.
+&nbsp; 3. Run the examples in lower half of the `greg2sol_test.do` script one at a time.
 
 Note that the dataset used in test examples is automatically copied to your working directory during installation of the command. However, if you wish to skip the installation step please make sure that a copy of `IRR_USD_histExRate.dta` dataset, available in current repository, lives in your working direcotry before running the examples.
 

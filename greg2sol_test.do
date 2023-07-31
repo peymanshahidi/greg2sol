@@ -21,12 +21,12 @@ cap net install greg2sol, ///
 ** The "greg2sol" command accommodates three different types of Gregorian date
 ** inputs and generates up to three different types of Solar Hijri date outputs.
 **
-** Types of Gregorian date input(s):
-** 1. a string variable in "year/month/day" format (e.g., "2011/8/23")
+** Types of Gregorian date inputs:
+** 1. a string variable in "year/month/day" format (e.g., "2011/08/23")
 ** 2. a Stata datetime variable in %t* format (e.g., 23aug2011 with value 18862)
 ** 3. three separate variables; one for each of year, month, day (in this order)
 **
-** Types of Solar Hijri date output(s):
+** Types of Solar Hijri date outputs:
 ** 1. a string variable in "year/month/day" format (e.g., "1390/06/01")
 ** 2. a Stata datetime variable in %td format (e.g., 01sha1390 with value 18862)
 ** 3. three separate variables; one for each of year, month, day
@@ -43,8 +43,8 @@ greg2sol dateGregorian, separate(yearSolar monthSolar daySolar) ///
 						datetime(solarDate_datetime) aesthetic(long)
 sort solarDate_datetime
 
-** Solar Hijri labels in datetime-format outputs (e.g., the "solarDate_datetime"
-** variable generated above) are preserved while plotting graphs
+** Solar Hijri labels in datetime-format outputs (e.g., the labels for 
+** "solarDate_datetime" generated above) are preserved while plotting graphs
 graph twoway line IRR_USD solarDate_datetime, ///
 								xlabel(, grid) graphregion(margin(r+6 t+2)) ///
 								xlabel(7942 11626 15500 19386 23066, valuelabel)
