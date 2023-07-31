@@ -1,6 +1,8 @@
 {smcl}
-{* *! version 1.0  30jul2023}{...}
-{vieweralsosee "sol2greg" "help sol2greg"}{...}
+{* *! version 1.0  31jul2023}{...}
+{vieweralsosee "" "--"}{...}
+{vieweralsosee "[D] datetime display formats" "help datetime_display_formats"}{...}
+{vieweralsosee "[S] sol2greg" "help sol2greg"}{...}
 {viewerjumpto "Syntax" "greg2sol##syntax"}{...}
 {viewerjumpto "Description" "greg2sol##description"}{...}
 {viewerjumpto "Options" "greg2sol##options"}{...}
@@ -11,7 +13,7 @@
 {title:Title}
 
 {phang}
-{bf:greg2sol} {hline 2} Gregorian to Solar Hijri Calendar Conversion in Stata
+{manlink G greg2sol} {hline 2} Gregorian to Solar Hijri Calendar Conversion in Stata
 
 
 {marker syntax}{...}
@@ -33,7 +35,7 @@
 {p2coldent :* {opth d:atetime(name)}}generate a variable in {bf:%td} datetime format with Solar Hijri labels{p_end}
 
 {syntab:Datetime Label Aesthetics}
-{p2coldent :{opth aes:thetic(str)}}specify aesthetic format of labels in output of {opth d:atetime(name)} option.{p_end}
+{p2coldent :{opth aes:thetic(str)}}specify aesthetic format of labels in output of {opth d:atetime(name)} option. Default is {bf:short} (e.g., {it:01sha1390}).{p_end}
 {synoptline}
 {pstd}* Any number of output options can be specified concurrently, but specifying at least one is required.
 
@@ -72,24 +74,27 @@ In the latter case, it is assumed that user has intentionally provided entries i
 {phang}
 {opth d:atetime(name)} creates a single variable in {bf:%td} datetime format with Solar Hijri dates as observation labels. Name of output variable is provided via {it:name}. Aesthetics of Solar Hijri date label can be changed through the {opth aes:thetic(str)} option.
 
-{dlgtab:Datetime Format}
+{dlgtab:Datetime Label Aesthetics}
 
 {phang}
 {opth aes:thetic(str)} specifies aesthetic format of labels shown in output generated through {opth d:atetime(name)}. Available options are {bf:short} (e.g., {it:01sha1390}) and {bf:long} (e.g., {it:1 Shahrivar 1390}). If not specified, {bf:short} is used as the default option.
-Note that, under the current version of {cmd:greg2sol}, even if the datetime format of output is changed the Solar Hijri labels remains untocuhed (i.e., if {bf:aesthetic(short)} is specified and the user changes the output format to {bf:%tC}, the label is still shown as {it:01sha1390}).
+Note that, under the current version of {cmd:greg2sol}, even if the datetime format of output is changed (see {manhelp datetime_display_formats D:datetime display formats}) the Solar Hijri labels remain untocuhed (i.e., if {bf:aesthetic(short)} is specified and the user changes the output format to {bf:%tC}, the label is still shown as {it:01sha1390}).
 
 
 {marker installation}{...}
 {title:Installation}
 
 {pstd}In order to install {cmd:greg2sol}, run the following command:{p_end}
+
 {phang2}{cmd:. net install greg2sol, from(https://raw.githubusercontent.com/peymanshahidi/greg2sol/master)}{p_end}
+
+{pstd}An ancillary IRR to USD historical exchange rate dataset is shipped during the installation process for test purposes. This dataset is deleted after the current Stata session is terminated.{p_end}
 
 
 {marker examples}{...}
 {title:Examples}
 
-{pstd}String input / Multiple outputs (separate, string, and datetime){p_end}
+{pstd}String input / Multiple outputs (separated, string, and datetime){p_end}
     {hline}
 {pstd}Setup{p_end}
 {phang2}{cmd:. sysuse IRR_USD_histExRate, clear}{p_end}
@@ -101,7 +106,7 @@ Note that, under the current version of {cmd:greg2sol}, even if the datetime for
 {phang2}{cmd:. graph twoway line IRR_USD solarDate_datetime, xlabel(, grid) graphregion(margin(r+6 t+2)) xlabel(7942 11626 15500 19386 23066, valuelabel)}{p_end}
 
 
-{pstd}Datetime input / Separate outputs{p_end}
+{pstd}Datetime input / Separated outputs{p_end}
     {hline}
 {pstd}Setup{p_end}
 {phang2}{cmd:. sysuse IRR_USD_histExRate, clear}{p_end}
@@ -114,7 +119,7 @@ Note that, under the current version of {cmd:greg2sol}, even if the datetime for
 {phang2}{cmd:. greg2sol dateGregorian_datetime, sep(yearSolar monthSolar daySolar)}{p_end}
 
 
-{pstd}Separate inputs / String output{p_end}
+{pstd}Separated inputs / String output{p_end}
     {hline}
 {pstd}Setup{p_end}
 {phang2}{cmd:. sysuse IRR_USD_histExRate, clear}{p_end}
