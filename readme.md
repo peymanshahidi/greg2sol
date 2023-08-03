@@ -1,6 +1,6 @@
 # `greg2sol`: Gregorian to Solar Hijri Calendar Conversion in Stata
 #### Developed by Peyman Shahidi
-#### Last updated on 31 July 2023 (9 Mordad 1402)
+#### Last updated on 3 August 2023 (12 Mordad 1402)
 
 
 *******************************************************************************
@@ -58,15 +58,13 @@ Reading the help file before using the command is strongly recommended.
 
 *******************************************************************************
 ## Test Materials
-The file `greg2sol_test.do` gives three examples to illustrate different use cases of `greg2sol` in Gregorian to Solar Hijri conversion. To run the test examples, follow these steps:
+The file `greg2sol_test.do` in the current repository gives three examples to illustrate different use cases of `greg2sol` in Gregorian to Solar Hijri conversion. To test the command follow these steps:
 
 &nbsp; 1. Download `greg2sol_test.do` from the current repository.
 
-&nbsp; 2. Install the `greg2sol` command as instructed above (lines 15 to 17 of the `greg2sol_test.do` script do this for you).*
+&nbsp; 2. Run the script!
 
-&nbsp; 3. Run the examples in the bottom half of the `greg2sol_test.do` script one at a time.
-
-*: All examples use the test dataset `IRR_USD_histExRate.dta`, which can be found at the current repository. During the installation of the command, a copy of this dataset is temporarily copied into your working directory to ensure that the examples run smoothly. If you wish to skip the installation step, please make sure that a copy of `IRR_USD_histExRate.dta` exists in your present working directory for the rest of the code to work.
+The script comprises two sections. The first installs `greg2sol` and copies a test dataset into your current working direcotry. The second contains three test examples.
 
 
 *******************************************************************************
