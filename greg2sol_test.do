@@ -15,6 +15,7 @@ set scheme s1color
 ************************ Part 1: Get Required Materials ************************
 ** install "greg2sol" and copy the test dataset into current working directory
 global my_url "https://raw.githubusercontent.com/peymanshahidi/greg2sol/master/"
+cap ado uninstall greg2sol
 cap net install greg2sol, from($my_url)
 cap net get greg2sol, from($my_url)
 
