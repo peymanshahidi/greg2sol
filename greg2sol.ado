@@ -167,7 +167,7 @@ quietly{
 			** create Solar Hijri date labels
 			tempvar solarMonth_name sd_str sy_str
 			if "`aesthetic'" == "long" {
-				gen `solarMonth_name' = "Farvarding" if sm == 1
+				gen `solarMonth_name' = "Farvardin" if sm == 1
 				replace `solarMonth_name' = "Ordibehesht" if sm == 2
 				replace `solarMonth_name' = "Khordad" if sm == 3
 				replace `solarMonth_name' = "Tir" if sm == 4
